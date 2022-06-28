@@ -26,6 +26,9 @@ function get_forwarded_ip() {
 
 
 function process_admin_login( $user_login, $user ) {
+  if (!in_array('administrator',  wp_get_current_user()->roles)) {
+    return;
+  }
 
   $site = get_bloginfo("name");
   $subject = "[{$site}] Admin Login: {$user_login}";
