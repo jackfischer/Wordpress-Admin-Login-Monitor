@@ -7,7 +7,8 @@
  * Version:           1.0.0
  * Author:            Jack Fischer
  * Author URI:        https://github.com/jackfischer
- * License:           MIT
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Update URI:        https://github.com/jackfischer/Wordpress-Admin-Login-Monitor
  */
 
