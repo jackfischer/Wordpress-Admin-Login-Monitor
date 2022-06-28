@@ -12,16 +12,11 @@
  * Update URI:        https://github.com/jackfischer/Wordpress-Admin-Login-Monitor
  */
 
-function GetForwardedIP() {
-  // https://stackoverflow.com/a/6718472/4922673
-  foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key)
-  {
-    if (array_key_exists($key, $_SERVER) === true)
-    {
-      foreach (array_map('trim', explode(',', $_SERVER[$key])) as $ip)
-      {
-        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false)
-        {
+function get_forwarded_ip() {
+  foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
+    if (array_key_exists($key, $_SERVER) === true) {
+      foreach (array_map('trim', explode(',', $_SERVER[$key])) as $ip) {
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
           return [$key, $ip];
         }
       }
@@ -32,11 +27,11 @@ function GetForwardedIP() {
 
 function process_admin_login( $user_login, $user ) {
 
-  $site = get_bloginfo( "name" );
-  $subject = "Admin Login: '{$user_login}' on {$site}";
+  $site = get_bloginfo("name");
+  $subject = "[{$site}] Admin Login: {$user_login}";
   $headers = array('Content-Type: text/html; charset=UTF-8');
   $user_edit_link = admin_url('user-edit.php') . "?user_id={$user->ID}";
-  [$forwarded_header, $forwarded_ip] = getForwardedIP();
+  [$forwarded_header, $forwarded_ip] = get_forwarded_ip();
 
   $admins = get_users( array( 'role' => 'administrator' ) );
   foreach ($admins as $admin) {
