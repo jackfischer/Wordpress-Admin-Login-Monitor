@@ -1,14 +1,14 @@
 === Admin Login Monitor ===
 Contributors: jackfischer
 Tags: security,alerts,monitoring
-Requires at least: 4.7
-Tested up to: 5.4
+Requires at least: 6.0
+Tested up to: 6.0
 Stable tag: 1.0.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Warn site administrators about all administrator logins.
+Email site administrators about all administrator logins.
 
 == Description ==
 
@@ -16,7 +16,7 @@ There are numerous plugins for emailing or otherwise notifying administrators wh
 
 Example alert email,
 
-``
+```
 Hello Jack Fischer,
 
 The account 'Lorem' just logged in.
