@@ -17,7 +17,7 @@ class JFAdminLoginMonitor {
   private static function get_forwarded_ip() {
     foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'HTTP_CF_CONNECTING_IP', 'X-FORWARDED-FOR', 'CF-CONNECTING-IP') as $key) {
       if (array_key_exists($key, $_SERVER) === true) {
-        foreach (array_map('trim', explode(',', $_SERVER[$key])) as $ip) {
+        foreach (array_map('trim', explode(',', sanitize_text_field($_SERVER[$key]))) as $ip) {
           if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
             return [$key, $ip];
           }
@@ -28,7 +28,7 @@ class JFAdminLoginMonitor {
   }
 
   public static function process_admin_login( $user_login, $user ) {
-    if (current_user_can( 'administrator' )) {
+    if (current_user_can( 'administrator' )) { // Non-administrator logging in
       return;
     }
 
@@ -44,8 +44,8 @@ class JFAdminLoginMonitor {
       $email = $admin->user_email;
 
       // TODO https://stackoverflow.com/a/20720053/4922673
-      $remoteAddr = $_SERVER['REMOTE_ADDR'];
-      $userAgent = $_SERVER['HTTP_USER_AGENT'];
+      $remoteAddr = sanitize_text_field($_SERVER['REMOTE_ADDR']);
+      $userAgent = sanitize_text_field($_SERVER['HTTP_USER_AGENT']);
       $message = "
 <html>
 <body>
