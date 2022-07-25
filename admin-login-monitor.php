@@ -4,7 +4,7 @@
  * Plugin Name:       Admin Login Monitor
  * Plugin URI:        https://github.com/jackfischer/Wordpress-Admin-Login-Monitor
  * Description:       Automatically email warning for new admin logins
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            Jack Fischer
  * Author URI:        https://github.com/jackfischer
  * License:           GPL v2 or later

@@ -49,6 +49,12 @@ This is not currently supported
 
 == Changelog ==
 
+= 1.2 = 
+* Internal improvements for Wordpress plugin directory
+
+= 1.1 = 
+* Message enhancements
+
 = 1.0 =
 * Initial release
 
